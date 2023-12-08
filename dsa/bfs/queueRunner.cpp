@@ -9,14 +9,14 @@ int arr[][5]={
 	{1,0,0,0,0},
 	{0,0,1,0,0}
 };
-int visited[10]={-1},i=0;
-int vertex=0;
-int see[10]={0};
+
+int vertex=0;//for the see[]
+int see[10]={0};//visited
 void dfs(){
-	add(vertex);
-	printf("%d ",vertex);
+	add(vertex);//put 0 first
+	printf("%d ",vertex);//print it
 	while(!isEmpty()){
-		int node = peek(); //remove
+		int node = peek(); //put to get adj
         see[vertex] = 1; //mark visited
         for (int j = 0; j < 5; j++)
         {
@@ -27,8 +27,8 @@ void dfs(){
             	
 			}
         }
-        vertex=peek();
-        del();
+        vertex=peek();//now put the adj in the vertex to visit
+        del(); //del first
 	}
 }
 
