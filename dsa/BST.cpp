@@ -20,6 +20,7 @@ node* create(node* root,int data){
 		root->data=data;
 		root->left=NULL;
 		root->right=NULL;
+		
 		return root;
 	}else{
 		if(root->data > data)
@@ -80,6 +81,27 @@ int height(node* root){
 	
 }
 
+node* del(node* root,int key){
+	if(root->data==key){
+		if(root->left==NULL && root->right==NULL)
+			free(root);
+		else{
+			if()
+		}
+	}else{
+		if(root->data > key)
+			root->left=del(root->left,key);
+		else
+			root->right=del(root->right,key)
+	}
+}
+
+bool search(node *root,node* temp,int key){
+	temp=root;
+	while(temp!=NULL){
+		if(temp->)
+	}
+}
 
 int main(){
 	node* root=NULL;
