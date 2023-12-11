@@ -59,7 +59,7 @@ void mergeSort(int arr[],int beg,int end){
 
 int main(){
 	
-	int arr[]={1,2,6,4,5,3};
+	int arr[]={4,6,3,7,1,9};
 	mergeSort(arr,0,5);
 	printf("\n========\n");
 	for(int i=0;i<6;i++)
