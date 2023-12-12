@@ -1,157 +1,144 @@
+//simple and fast
 #include<stdio.h>
-int arr[4][5] =  
-    {  
-        {0 , 0 , 6 , 0 , 9 },  
-        {0 , 0 , 4 , 6 , 0 },  
-        {0 , 0 , 0 , 0 , 0 },  
-        {0 , 1 , 2 , 0 , 0 }  
-};
+//simple (done)
+//fast
+void fast(int arr[][3],int trans[][3],int t);
+//void big(int arr[][3],int t);
 
-void toSpares(int sp[][3],int n,int m,int t){
-	int temp1=1;
-	sp[0][0]=n;
-	sp[0][1]=m;
-	sp[0][2]=t;
-	for(int i=0;i<n;i++){
-		for(int j=0;j<m;j++){
-			if(arr[i][j]!=0){
-				sp[temp1][0]=i;
-				sp[temp1][1]=j;
-				sp[temp1][2]=arr[i][j];
-				temp1++;
-			}
-		}
-	}
-	
-}
-
-void displaySpares(int sp[][3],int t){
-	
+void display(int arr[10][3],int t){
+	printf("\n");
 	for(int i=0;i<=t;i++){
 		for(int j=0;j<3;j++){
-			printf("%d\t",sp[i][j]);
+			printf("%d	",arr[i][j]);
 		}
 		printf("\n");
 	}
+	
+	
 }
 
 
-//===simple trans start==========
-void bubble(int trans[][3],int t){
-	int temp,n=t+1;
-	bool b=true;
-	while(b){
-	
-		b=false;
+void bubbleSort(int arr[10][3],int t){
+	int flag=1,n=t+1;
+	while(flag){
+		flag=0;
+		
 		for(int i=1;i<n;i++){
-			if(trans[i][0]>trans[i+1][0] && i+1!=n){
-				b=true;
-				//printf("hello\n");
-				temp=trans[i][0];
-				trans[i][0]=trans[i+1][0];
-				trans[i+1][0]=temp;
-			
-				temp=trans[i][1];
-				trans[i][1]=trans[i+1][1];
-				trans[i+1][1]=temp;
+			if(arr[i][0]>arr[i+1][0] && (i+1)!=n){
+				int temp=arr[i][0];
+				arr[i][0]=arr[i+1][0];
+				arr[i+1][0]=temp;
 				
-				temp=trans[i][2];
-				trans[i][2]=trans[i+1][2];
-				trans[i+1][2]=temp;
-			}else{
-				if(trans[i][0]==trans[i+1][0] && i+1!=n){
-					if(trans[i][1]>trans[i+1][1]){
-						b=true;
-				//printf("hello\n");
-						temp=trans[i][0];
-						trans[i][0]=trans[i+1][0];
-						trans[i+1][0]=temp;
-					
-						temp=trans[i][1];
-						trans[i][1]=trans[i+1][1];
-						trans[i+1][1]=temp;
-						
-						temp=trans[i][2];
-						trans[i][2]=trans[i+1][2];
-						trans[i+1][2]=temp;		
-					}	
-				}
+			 	temp=arr[i][1];
+				arr[i][1]=arr[i+1][1];
+				arr[i+1][1]=temp;
+				
+				temp=arr[i][2];
+				arr[i][2]=arr[i+1][2];
+				arr[i+1][2]=temp;
+				flag=1;
 			}
 		}
 	}
+	
+	
 }
 
 
-
-void simpleTrans(int sp[][3],int trans[][3],int t){
-	trans[0][0]=sp[0][0];
-	trans[0][1]=sp[0][1];
-	trans[0][2]=sp[0][2];
+void simple(int arr[][3],int trans[][3],int t){
+	trans[0][1]=arr[0][0];
+	trans[0][0]=arr[0][1];
+	trans[0][2]=arr[0][2];
+	
+	//switch the first and last
+	
 	for(int i=1;i<=t;i++){
-		trans[i][0]=sp[i][1];
-		trans[i][1]=sp[i][0];
-		trans[i][2]=sp[i][2];
+		trans[i][0]=arr[i][1];
+		trans[i][1]=arr[i][0];
+		trans[i][2]=arr[i][2];
 	}
-	bubble(trans,t);	
-}
-//===simple trans end==========
-
-void fastTrans(int sp[][3],int trans[][3],int t){
+	printf("========just swap===========");
+	display(trans,6);
+	//now value swap
+	bubbleSort(trans,t);
+	printf("========sort==========");
+	display(trans,t);
 	
-	int freq[sp[0][1]]={0},pos[sp[0][1]]={0};
-	for(int i=1;i<=sp[0][1];i++){
-		freq[sp[i][1]]+=1;
-	}
-	int n=sp[0][1];
-	int start=0;
-	for(int i=0;i<n;i++){
-		if(freq[i]!=0){
-			start=i;
-			break;
-		}
-	}
-	printf("\nstart:%d\n",start);
-	
-	printf("\n====freq=====\n");
-	for(int i=0;i<n;i++)
-		printf("%d ",freq[i]);
-	printf("\n");
-	
-	pos[start]=1;
-	for(int i=start+1;i<n;i++){
-		pos[i]=pos[i-1]+freq[i-1];	
-	}
-	printf("\n====start=====\n");
-	for(int i=0;i<n;i++)
-			printf("%d ",pos[i]);
-	trans[0][0]=sp[0][1];
-	trans[0][1]=sp[0][0];
-	trans[0][2]=sp[0][2];
-	int temp;
-	for(int i=1;i<t;i++){
-		temp=sp[i][1];
-		trans[pos[temp]][0]=temp;
-		trans[pos[temp]][1]=sp[i][0];
-		trans[pos[temp]][2]=sp[i][2];
-		pos[temp]+=1;
-	}
-//	trans[1][0]=
-//-1 1 3 1 1 0	
 }
 
 int main(){
-	int sp[10][3];
+	int arr[][3]={
+		{5,6,6},	
+		{0,2,9},
+		{1,1,8},
+		{2,0,4},
+		{2,3,2},
+		{3,4,5},
+		{4,2,2}
+	};
+	//1 1 2 1 0 1
+	//1 2 3 5 6 6
+//	printf("=========original==========\n");
+//	display(arr,6);
 	int trans[10][3];
-	printf("\n==============\n");
-	toSpares(sp,4,5,6);
-	displaySpares(sp,6);
-	printf("\n==============\n");
-//	simpleTrans(sp,trans,6);
-	printf("\n==============\n");
-//	displaySpares(trans,6);
-	fastTrans(sp,trans,6);
-	printf("\n");
-	displaySpares(trans,6);
-	
-}  
+//	simple(arr,trans,6);
+	fast(arr,trans,6);
 
+
+}
+
+int big(int arr[][3],int t){
+	int n=t+1;
+	int max=0;
+	for(int i=1;i<n;i++){
+		if(max<arr[i][1])
+			max=arr[i][1];
+	}
+	return max;
+}
+
+void fast(int arr[][3],int trans[][3],int t){
+	trans[0][1]=arr[0][0];
+	trans[0][0]=arr[0][1];
+	trans[0][2]=arr[0][2];
+	
+
+	//how many times came
+	//start of it
+	int limit=big(arr,6)+1,n=t+1;
+	int freq[limit]={0},start[limit]={0};
+	//n coz it iterates
+
+	for(int i=1;i<n;i++){
+		freq[arr[i][1]]+=1;
+	}
+	//limit for freq
+	for(int i=0;i<limit;i++)
+		printf("%d	",freq[i]);
+	
+	printf("\n===================\n");
+	start[0]=freq[0];
+	for(int i=1;i<limit;i++){
+	
+			start[i]=start[i-1]+freq[i-1];
+		
+	}
+	
+	for(int i=0;i<limit;i++)
+		printf("%d	",start[i]);
+	
+	int rows=1;
+	for(int i=1;i<=t;i++){
+
+		int tempCheck=arr[i][1];	
+		trans[start[tempCheck]][0]=arr[i][1];
+		trans[start[tempCheck]][1]=arr[i][0];
+		trans[start[tempCheck]][2]=arr[i][2];
+		//printf("%d	%d	%d	\n",trans[start[tempCheck]][0],trans[start[tempCheck]][1],trans[start[tempCheck]][2]);
+		start[tempCheck]+=1;
+	}
+	printf("\n===========\n");
+	display(trans,6);
+	
+	
+}
